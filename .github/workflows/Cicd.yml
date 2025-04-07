@@ -1,4 +1,4 @@
-name: CICD Pipeline for Python Application using github actions 
+name: CICD Pipeline for Python Application using github actions. 
 
 on:
   push:
@@ -20,6 +20,9 @@ jobs:
         #pip install flake8 pytest
         #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install requirements.txt
-    - name: Testing the Code
+  Test:
+    runs-on: self-hosted-ubuntu-runner
+    steps:
+    - name: Test
       run: python app.py
     
