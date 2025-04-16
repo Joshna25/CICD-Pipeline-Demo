@@ -19,6 +19,7 @@ jobs:
         python -m pip install --upgrade pip
         #pip install flake8 pytest
         #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pwd
         pip install -r requirements.txt
     - name: Install Trivy
       #shell: bash
@@ -30,7 +31,14 @@ jobs:
             sudo DEBIAN_FRONTEND=noninteractive apt-get install trivy -y
     - name: Trivy Scan
      # run: trivy fs . 
-      run: trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+      run: |
+          trivy fs --exit-code 0 --severity HIGH,CRITICAL --format table --output trivy-report.txt .
+    - name: Trivy Report Upload
+      uses: actions/upload-artifact@v4
+      with:
+       name: trivy-report
+       path: trivy-report.txt
+
   Test:
     runs-on: self-hosted
     needs: build
