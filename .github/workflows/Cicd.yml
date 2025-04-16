@@ -29,7 +29,8 @@ jobs:
             sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
             sudo DEBIAN_FRONTEND=noninteractive apt-get install trivy -y
     - name: Trivy Scan
-      run: trivy fs . 
+     # run: trivy fs . 
+      run: trivy fs --exit-code 1 --severity HIGH,CRITICAL .
   Test:
     runs-on: self-hosted
     needs: build
