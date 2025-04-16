@@ -1,4 +1,6 @@
 import requests
+test = "COde Smell Testing"
+x = 150
 
 def githubStatus():
     url = "https://github.com/"
