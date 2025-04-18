@@ -81,4 +81,16 @@ jobs:
         context: .
         push: true
         tags: jm2501/app:latest
+  Deployment:
+    runs-on: self-hosted
+    needs: DockerPush
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+    - name: Start the minikube
+      run: |
+        minikube start --driver=docker --kubernetes-version=v1.24.0
+    - name: Deploy the application
+      run: |
+        kubectl apply -f deployment.yaml
     
